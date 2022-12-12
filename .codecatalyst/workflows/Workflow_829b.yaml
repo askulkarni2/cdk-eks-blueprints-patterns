@@ -10,25 +10,34 @@ Triggers:
 # Required - Define action configurations.
 Actions:
   AWSCDKbootstrap_a8:
-    # Identifies the action. Do not modify this value.
     Identifier: aws/cdk-bootstrap@v1
-
-    # Specifies the source and/or artifacts to pass to the action as input.
-    Inputs:
-      # Optional
-      Sources:
-        - WorkflowSource # This specifies that the action requires this Workflow as a source
-
-    # Required; You can use an environment, AWS account connection, and role to access AWS resources.
-    Environment:
-      Name: dev
-      Connections:
-        - Name: 829527579886
-          Role: CodeCatalystPreviewDevelopmentAdministrator-cp0fdz
-
-            # Defines the action's properties.
     Configuration:
-      # Required; type: string; description: AWS region to bootstrap
       Region: us-west-2
-
-
+    Environment:
+      Connections:
+        - Role: CodeCatalystPreviewDevelopmentAdministrator-cp0fdz
+          Name: "829527579886"
+      Name: dev
+    DependsOn:
+      - Build_e9
+    Inputs:
+      Sources:
+        - WorkflowSource
+  Build_e9:
+    Identifier: aws/build@v1
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Outputs:
+      AutoDiscoverReports:
+        Enabled: true
+        ReportNamePrefix: rpt
+    Configuration:
+      Steps:
+        - Run: echo "Hello, World!"
+        - Run: echo "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" >> report.xml
+        - Run: echo "<testsuite tests=\"1\" name=\"TestAgentJunit\" >" >> report.xml
+        - Run: echo "<testcase classname=\"TestAgentJunit\" name=\"Dummy
+            Test\"/></testsuite>" >> report.xml
+    Compute:
+      Type: EC2
