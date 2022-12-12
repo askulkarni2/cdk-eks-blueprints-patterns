@@ -21,8 +21,9 @@ Actions:
     DependsOn:
       - Build_e9
     Inputs:
-      Sources:
-        - WorkflowSource
+      Artifacts:
+        - newOutput
+      Sources: []
   Build_e9:
     Identifier: aws/build@v1
     Inputs:
@@ -32,6 +33,10 @@ Actions:
       AutoDiscoverReports:
         Enabled: true
         ReportNamePrefix: rpt
+      Artifacts:
+        - Name: newOutput
+          Files:
+            - "**/*"
     Configuration:
       Steps:
         - Run: npm install
