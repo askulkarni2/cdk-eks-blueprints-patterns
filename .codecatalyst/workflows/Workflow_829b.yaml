@@ -34,6 +34,6 @@ Actions:
         ReportNamePrefix: rpt
     Configuration:
       Steps:
-        - Run: make build
+        - Run: npm run build
     Compute:
       Type: EC2
