@@ -13,6 +13,8 @@ Actions:
     Identifier: aws/cdk-bootstrap@v1
     Configuration:
       Region: us-west-2
+      Steps:
+        - Run: npm install
     Environment:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-cp0fdz
