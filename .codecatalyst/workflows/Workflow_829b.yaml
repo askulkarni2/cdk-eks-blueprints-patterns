@@ -13,8 +13,6 @@ Actions:
     Identifier: aws/cdk-bootstrap@v1
     Configuration:
       Region: us-west-2
-      Steps:
-        - Run: npm install
     Environment:
       Connections:
         - Role: CodeCatalystPreviewDevelopmentAdministrator-cp0fdz
@@ -25,7 +23,11 @@ Actions:
     Inputs:
       Artifacts:
         - newOutput
-      Sources: []
+    Outputs:
+      Artifacts:
+        - Name: cdk_bootstrap_artifacts
+          Files: 
+            - "cdk.out/**/*"
   Build_e9:
     Identifier: aws/build@v1
     Inputs:
